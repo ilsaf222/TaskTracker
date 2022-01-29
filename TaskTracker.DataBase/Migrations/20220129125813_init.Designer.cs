@@ -12,8 +12,8 @@ using TaskTracker.DataBase;
 namespace TaskTracker.DataBase.Migrations
 {
     [DbContext(typeof(TaskTrackerContext))]
-    [Migration("20220128180718_update4")]
-    partial class update4
+    [Migration("20220129125813_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,7 +43,7 @@ namespace TaskTracker.DataBase.Migrations
                     b.Property<int>("Priority")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("ProjectId")
+                    b.Property<int>("ProjectId")
                         .HasColumnType("integer");
 
                     b.Property<int>("Status")
@@ -93,7 +93,9 @@ namespace TaskTracker.DataBase.Migrations
                 {
                     b.HasOne("TaskTracker.Domain.Entities.Project", null)
                         .WithMany("Objectives")
-                        .HasForeignKey("ProjectId");
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TaskTracker.Domain.Entities.Project", b =>
